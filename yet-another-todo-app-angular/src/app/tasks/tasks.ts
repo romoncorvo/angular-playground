@@ -1,8 +1,7 @@
-import { Component, input, signal } from "@angular/core";
+import { Component, inject, Input, signal } from "@angular/core";
 import { Task } from "./task/task";
-import { DUMMY_TASKS } from "../dummy-tasks";
 import { NewTask } from "./new-task/new-task";
-import { NewTaskData } from "./task/task.model";
+import { TasksService } from "./tasks.service";
 
 @Component({
   selector: "app-tasks",
@@ -11,35 +10,20 @@ import { NewTaskData } from "./task/task.model";
   styleUrl: "./tasks.css",
 })
 export class Tasks {
-  userName = input<string>();
-  userId = input<string>();
+  @Input({ required: true }) userName!: string;
+  @Input({ required: true }) userId!: string;
+  private tasksService = inject(TasksService);
   isAddingTask = signal(false);
-  tasks = DUMMY_TASKS;
 
   get selectedUserTasks() {
-    return this.tasks.filter((task) => task.userId === this.userId());
-  }
-
-  onCompleteTask(id: string) {
-    this.tasks = this.tasks.filter((task) => task.id !== id);
+    return this.tasksService.getUserTasks(this.userId);
   }
 
   onStartAddTask() {
     this.isAddingTask.set(true);
   }
 
-  onCancelAddTask() {
-    this.isAddingTask.set(false);
-  }
-
-  onAddTask(newTask: NewTaskData) {
-    this.tasks.unshift({
-      id: Math.random().toString(),
-      userId: this.userId() || "",
-      title: newTask.title,
-      summary: newTask.summary,
-      dueDate: newTask.dueDate,
-    });
+  onCloseAddTask() {
     this.isAddingTask.set(false);
   }
 }
