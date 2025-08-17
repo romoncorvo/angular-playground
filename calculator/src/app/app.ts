@@ -17,14 +17,16 @@ export type InvestmentData = {
   styleUrl: './app.css',
 })
 export class App {
-  resultsData?: {
-    year: number;
-    interest: number;
-    valueEndOfYear: number;
-    annualInvestment: number;
-    totalInterest: number;
-    totalAmountInvested: number;
-  }[];
+  resultsData = signal<
+    {
+      year: number;
+      interest: number;
+      valueEndOfYear: number;
+      annualInvestment: number;
+      totalInterest: number;
+      totalAmountInvested: number;
+    }[]
+  >([]);
 
   onCalculateInvestmentResults(data: InvestmentData) {
     const { initialInvestment, annualInvestment, expectedReturn, duration } =
@@ -49,6 +51,6 @@ export class App {
       });
     }
 
-    this.resultsData = annualData;
+    this.resultsData.set(annualData);
   }
 }
