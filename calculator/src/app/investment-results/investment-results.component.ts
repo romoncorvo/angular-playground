@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, input } from '@angular/core';
-import { InvestmentData } from '../app';
+import { Component, computed, inject } from '@angular/core';
+import { InvestmentService } from '../InvestmentService';
 
 @Component({
   selector: 'app-investment-results',
@@ -9,14 +9,6 @@ import { InvestmentData } from '../app';
   styleUrl: './investment-results.component.css',
 })
 export class InvestmentResultsComponent {
-  investmentResults = input<
-    {
-      year: number;
-      interest: number;
-      valueEndOfYear: number;
-      annualInvestment: number;
-      totalInterest: number;
-      totalAmountInvested: number;
-    }[]
-  >();
+  private investmentService = inject(InvestmentService);
+  investmentResults = computed(() => this.investmentService.resultsData());
 }
