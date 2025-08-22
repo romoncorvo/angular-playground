@@ -13,7 +13,19 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve"
+    "module": "preserve",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ES2022", "dom"],
+    "baseUrl": ".",
+    "paths": {
+      "@angular/*": ["node_modules/@angular/*"],
+      "*": ["node_modules/*"]
+    },
+    "typeRoots": ["node_modules/@types"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
