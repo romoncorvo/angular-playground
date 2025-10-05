@@ -1,0 +1,12 @@
+<main>
+  <app-learning-resources />
+
+  <hr />
+
+  <app-auth />
+
+  @if (isAdmin()) {
+  <h3>Admin Section</h3>
+  <p>Only visible to users with admin permissions.</p>
+  }
+</main>
